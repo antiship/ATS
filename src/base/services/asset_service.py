@@ -12,12 +12,12 @@ class AssetService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def get_history(self, instrument_id: int = None, type_: str = None) -> json:
+    def get_history(self, instrument_id: int = None, type_: str = None) -> object:
         """
         Sends HTTP POST request to AssetService to return all records for provided instrument and given time gap.
-        :param instrument_id: ID of instrument- int, not mandatory (without- for all instruments)..
+        :param instrument_id: ID of instrument- int, not mandatory (without-for all instruments)...
         :param type_: String ("1m", "5m", "1h", "1d")- Tenor (good till date option).
-        :return: Service response body as json.
+        :return: Service response body as JSON.
         """
         payload = AssetServiceRequest().history(instrument_id, type_)
         try:
@@ -30,11 +30,11 @@ class AssetService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def set_favorite_instrument(self, instrument_id: int) -> json:
+    def set_favorite_instrument(self, instrument_id: int) -> object:
         """
         Sends HTTP POST request to AssetService to set record for provided instrument.
         :param instrument_id: ID of instrument- int
-        :return: Service response body as json.
+        :return: Service response body as JSON.
         """
         payload = AssetServiceRequest().set_favorite_instrument(instrument_id)
         try:
@@ -47,7 +47,7 @@ class AssetService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def remove_favorite_instrument(self, instrument_id: int) -> json:
+    def remove_favorite_instrument(self, instrument_id: int) -> object:
         """
         Sends HTTP POST request to AssetService to delete record for provided instrument.
         :param instrument_id: ID of instrument- int
@@ -64,13 +64,13 @@ class AssetService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_instruments(self, symbol: str = None, product_id: int = None) -> json:
+    def get_instruments(self, symbol: str = None, product_id: int = None) -> object:
         """
         Sends HTTP POST request to AssetService to return all tradeable instruments.
         :param symbol: String as "BTC/EUR, not mandatory.
         :param product_id: ID of product- int, not mandatory.
         If optional parameters not provided will be choosen for all available.
-        :return: Service response body as json.
+        :return: Service response body as JSON.
         """
         payload = AssetServiceRequest().get_instruments(symbol, product_id)
         try:
@@ -83,12 +83,12 @@ class AssetService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_ticker(self, instrument_id: int, currency_id: int) -> json:
+    def get_ticker(self, instrument_id: int, currency_id: int) -> object:
         """
         Sends HTTP POST request to AssetService to return ticker for instrument and currency.
         :param instrument_id: ID of an instrument- int.
         :param currency_id: ID of a currency- int.
-        :return: Service response body as json.
+        :return: Service response body as JSON.
         """
         payload = AssetServiceRequest().get_ticker(instrument_id, currency_id)
         try:
@@ -101,11 +101,11 @@ class AssetService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_last_trades(self, instrument_id: int) -> json:
+    def get_last_trades(self, instrument_id: int) -> object:
         """
         Sends HTTP POST request to AssetService to return last trade info for instrument.
         :param instrument_id: ID of an instrument- int.
-        :return: Service response body as json.
+        :return: Service response body as JSON.
         """
         payload = AssetServiceRequest().get_last_trades(instrument_id)
         try:

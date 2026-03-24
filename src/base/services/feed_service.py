@@ -12,10 +12,10 @@ class FeedService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def crypto_panic(self):
+    def crypto_panic(self) -> object:
         """
         Sends HTTP POST request to FeedService to receive all crypto data.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = FeedServiceRequest().crypto_panic()
         try:

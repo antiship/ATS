@@ -13,11 +13,11 @@ class CoinsMarketplace:
     coins_headers.update({'Authorization': 'Bearer ' + BaseConfig.BAR_TOKEN})
 
     @automation_logger(logger)
-    def get_cmp_account(self, customer_id: int):
+    def get_cmp_account(self, customer_id: int) -> object:
         """
         Sends HTTP POST request to CoinsMarketPlace to return internal (cmp) customer id.
         :param customer_id: Customer ID.
-        :return: Response body as json.
+        :return: Response body as JSON.
         """
         _url = self.coins_marketplace_url + '''?query={"name": "%s"}''' % str(customer_id)
         try:
@@ -30,11 +30,11 @@ class CoinsMarketplace:
             raise e
 
     @automation_logger(logger)
-    def get_customer_cmp_balance(self, customer_id: int) -> json:
+    def get_customer_cmp_balance(self, customer_id: int) -> object:
         """
         Sends HTTP POST request to CoinsMarketPlace to return customer balance.
         :param customer_id: Customer ID.
-        :return: Response body as json.
+        :return: Response body as JSON.
         """
         account_response = self.get_cmp_account(customer_id)
         assert account_response[0]['_id']

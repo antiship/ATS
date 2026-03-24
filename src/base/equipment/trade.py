@@ -63,3 +63,4 @@ class Trade(object):
             except Exception as e:
                 logger.logger.error("trades_data_conversion has failed:", e)
                 raise e
+        return None

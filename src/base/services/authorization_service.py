@@ -12,8 +12,11 @@ class AuthorizationService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def get_session_data(self):
+    def get_session_data(self) -> object:
+        """
 
+        :return:
+        """
         payload = AuthorizationServiceRequest().session_data()
         try:
             _response = requests.post(self.api_url, data=payload, headers=self.headers)
@@ -25,12 +28,12 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def sign_up_step_1(self, customer) -> json:
+    def sign_up_step_1(self, customer) -> object:
         """
         Registration- step 1
         Sends HTTP POST request to AuthorizationService to fill registration form.
         :param customer: Customer object.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         # MailGun.get_logs(customer.email)
         payload = AuthorizationServiceRequest().step_one(customer)
@@ -44,7 +47,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def log_in_by_tfa_token(self, tfa_token: str) -> json:
+    def log_in_by_tfa_token(self, tfa_token: str) -> object:
         payload = AuthorizationServiceRequest().login_by_tfa_token(tfa_token)
         try:
             _response = requests.post(self.api_url, data=payload, headers=self.headers)
@@ -56,7 +59,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def enable_tfa_step_1(self, password: str):
+    def enable_tfa_step_1(self, password: str) -> object:
         """
         Enables TFA - customer must be logged in.
         First step required to enable the tfa verification.
@@ -74,7 +77,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def enable_tfa_step_2(self, code):
+    def enable_tfa_step_2(self, code) -> object:
         """
         Second step required to enable the tfa verification
         :param code: Code sent to customer's phone for tfa verification. Hardcoded.
@@ -91,13 +94,13 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def verify_email_step_2(self, email: str, ver_token: str) -> json:
+    def verify_email_step_2(self, email: str, ver_token: str) -> object:
         """
         Registration- step 2
         Sends HTTP POST request to AuthorizationService to validate token via customer email.
         :param email: Customer email.
         :param ver_token: Verification token as str.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().step_two(email, ver_token)
         try:
@@ -110,12 +113,12 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def add_phone_step_3(self, customer) -> json:
+    def add_phone_step_3(self, customer) -> object:
         """
         Registration- step 3
         Sends HTTP POST request to AuthorizationService to add customer phone number.
         :param customer: Customer object.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         # 1- method, 2- phone, 3- country_code, 4- language
         payload = AuthorizationServiceRequest().step_three(customer)
@@ -129,11 +132,11 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def verify_phone_step_4(self) -> json:
+    def verify_phone_step_4(self) -> object:
         """
         Registration- step 4
         Sends HTTP POST request to AuthorizationService to validate phone number.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().step_four()
         try:
@@ -146,12 +149,12 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def update_personal_details_step_5(self, customer) -> json:
+    def update_personal_details_step_5(self, customer) -> object:
         """
         Registration- step 5
         Sends HTTP POST request to AuthorizationService to update customer account details.
         :param customer: Customer object.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().step_five(customer)
         try:
@@ -164,7 +167,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def client_checklist_step6(self) -> json:
+    def client_checklist_step6(self) -> object:
         payload = AuthorizationServiceRequest().step_six()
         try:
             _response = requests.post(self.api_url, data=payload, headers=self.headers)
@@ -176,14 +179,14 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def upload_documents_step_7(self, link1: str, link2: str, link3: str) -> json:
+    def upload_documents_step_7(self, link1: str, link2: str, link3: str) -> object:
         """
         Registration- step 7
         Sends HTTP POST request to AuthorizationService to upload documents.
         :param link1: Link to file provided from FileService.
         :param link2: Link to file provided from FileService.
         :param link3: Link to file provided from FileService.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().step_seven(link1, link2, link3)
         try:
@@ -196,12 +199,12 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def login_by_credentials(self, email: str, password: str) -> json:
+    def login_by_credentials(self, email: str, password: str) -> object:
         """
         Sends HTTP POST request to AuthorizationService to log in and receive auth_token.
         :param email: Customer email.
         :param password: Customer password.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().login_by_credentials(email, password)
         try:
@@ -214,12 +217,12 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def login_by_token(self, api_token: str, secret: str) -> json:
+    def login_by_token(self, api_token: str, secret: str) -> object:
         """
         Sends HTTP POST request to AuthorizationService to log in by api_token and receive auth_token.
         :param api_token: Customer api_token- str.
         :param secret: Customer secret- str.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().login_by_token(api_token, secret)
         try:
@@ -232,10 +235,10 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def log_out(self) -> json:
+    def log_out(self) -> object:
         """
         Sends HTTP POST request to AuthorizationService to log out and invalidate auth_token.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().log_out()
         try:
@@ -248,12 +251,12 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def generate_password_hash(self, email: str, password: str) -> json:
+    def generate_password_hash(self, email: str, password: str) -> object:
         """
         Sends HTTP POST request to AuthorizationService to receive hashed password.
         :param email: Customer email.
         :param password: Customer password.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().generate_password_hash(email, password)
         try:
@@ -266,11 +269,11 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def update_personal_details(self, customer: object) -> json:
+    def update_personal_details(self, customer: object) -> object:
         """
         Sends HTTP POST request to AuthorizationService to update customer details.
         :param customer: Customer object.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = AuthorizationServiceRequest().update_personal_details(customer)
         try:
@@ -283,7 +286,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def validate_token(self, auth_token: str) -> json:
+    def validate_token(self, auth_token: str) -> object:
         """
 
         :param auth_token:
@@ -300,7 +303,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_needed_files(self) -> json:
+    def get_needed_files(self) -> object:
         """
 
         :return:
@@ -316,7 +319,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_questionnaire(self) -> json:
+    def get_questionnaire(self) -> object:
         """
 
         :return:
@@ -332,7 +335,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_email_step1(self) -> json:
+    def change_email_step1(self) -> object:
         """
 
         :return:
@@ -348,7 +351,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_email_step2(self) -> json:
+    def change_email_step2(self) -> object:
         """
 
         :return:
@@ -364,7 +367,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_email_step3(self, mail_token=None, email=None) -> json:
+    def change_email_step3(self, mail_token=None, email=None) -> object:
         """
 
         :param mail_token:
@@ -382,7 +385,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_email_step4(self, ver_token: str) -> json:
+    def change_email_step4(self, ver_token: str) -> object:
         """
 
         :param ver_token:
@@ -399,7 +402,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_phone_step1(self) -> json:
+    def change_phone_step1(self) -> object:
         """
 
         :return:
@@ -415,7 +418,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_phone_step2(self) -> json:
+    def change_phone_step2(self) -> object:
         """
 
         :return:
@@ -431,7 +434,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_phone_step3(self, phone_token: str, full_phone: str) -> json:
+    def change_phone_step3(self, phone_token: str, full_phone: str) -> object:
         """
 
         :param phone_token:
@@ -449,7 +452,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_phone_step4(self) -> json:
+    def change_phone_step4(self) -> object:
         """
 
         :return:
@@ -465,7 +468,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def resend_sms(self) -> json:
+    def resend_sms(self) -> object:
         """
 
         :return:
@@ -481,7 +484,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def resend_email(self) -> json:
+    def resend_email(self) -> object:
         """
 
         :return:
@@ -497,7 +500,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def forgot_password_step1(self, email) -> json:
+    def forgot_password_step1(self, email) -> object:
         """
 
         :return:
@@ -513,7 +516,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def forgot_password_step2(self, email, ver_token, new_password) -> json:
+    def forgot_password_step2(self, email, ver_token, new_password) -> object:
         """
 
         :return:
@@ -529,7 +532,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def reset_password(self) -> json:
+    def reset_password(self) -> object:
         """
 
         :return:
@@ -545,7 +548,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def change_password(self, password, new_password) -> json:
+    def change_password(self, password, new_password) -> object:
         """
 
         :return:
@@ -562,7 +565,7 @@ class AuthorizationService(ServiceRoute):
 
 
     @automation_logger(logger)
-    def change_subscriptions(self, email_option, sms_option, mobile_option) -> json:
+    def change_subscriptions(self, email_option, sms_option, mobile_option) -> object:
         """
         Changes customer's subscriptions.
         Customer can be subscribed to email, sms and mobile adds and updates
@@ -582,7 +585,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_login_logs(self) -> json:
+    def get_login_logs(self) -> object:
 
         """
 
@@ -599,7 +602,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def reset_phone(self) -> json:
+    def reset_phone(self) -> object:
 
         """
 
@@ -616,7 +619,7 @@ class AuthorizationService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def sign_up_step_back(self) -> json:
+    def sign_up_step_back(self) -> object:
         """
 
         :return:

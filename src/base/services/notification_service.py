@@ -12,13 +12,13 @@ class NotificationService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def resend_sms(self, token_name: str, sms_type, action) -> json:
+    def resend_sms(self, token_name: str, sms_type, action) -> object:
         """
         Sends HTTP POST request to ApiService to generate api_token and secret.
         :param token_name: Any string.
         :param sms_type:
         :param action:
-        :return: Response body as json.
+        :return: Response body as JSON.
         """
         payload = NotificationServiceRequest().resend_sms(token_name, sms_type, action)
         try:

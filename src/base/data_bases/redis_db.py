@@ -1,5 +1,4 @@
 import json
-import time
 import redis
 import datetime
 from src.base import logger
@@ -28,7 +27,7 @@ class RedisDb:
 
     @classmethod
     @automation_logger(logger)
-    def get_orders_by_customer_redis(cls, customer_id):
+    def get_orders_by_customer_redis(cls, customer_id: int) -> list:
         """
         Get all orders by customer ID  provided from redis.
         :param customer_id:
@@ -276,8 +275,8 @@ class RedisDb:
     def get_hash_key_value(cls, key1, key2):
         """
         Connects to Redis DB to get value by provided key.
-        :param key1: neede redis key.
-        :param key2: neede redis key.
+        :param key1: need redis key.
+        :param key2: need redis key.
         :return: value of given key.
         """
         return cls.redis_client.hget(key1, key2)

@@ -2,10 +2,10 @@ import random
 import string
 import arrow
 import pymysql
-from config_definitions import BaseConfig
 from src.base import logger
-from src.base.automation_error import AutomationError
+from config_definitions import BaseConfig
 from src.base.log_decorator import automation_logger
+from src.base.automation_error import AutomationError
 
 
 class SqlDb:
@@ -24,13 +24,14 @@ class SqlDb:
         """
         # Ignore "Not closed socket connection" warning.
         # warnings.simplefilter("ignore", ResourceWarning)
-        # SQL client- connector for MySQL DB.
+        # SQL client-connector for MySQL DB.
         with cls.connection.cursor() as cursor:
             cursor.execute(query)
             rows = cursor.fetchall()
             cursor.close()
             if rows:
                 return rows
+            return None
 
     @classmethod
     @automation_logger(logger)
@@ -438,7 +439,7 @@ class SqlDb:
     @automation_logger(logger)
     def get_fee_amount_by_trade(cls, trade_id):
         """
-        Provides fee amount  from DB by Trade Id
+        Provides fee amount  from DB by Trade ID
 
         :param trade_id:
         :return: fee amount as float

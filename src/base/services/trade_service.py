@@ -12,10 +12,10 @@ class TradeService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def platform_data(self) -> json:
+    def platform_data(self) -> object:
         """
         Sends HTTP POST request to TradeManagementRequests to get platform data.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = TradeServiceRequest().platform_data()
         try:
@@ -28,10 +28,10 @@ class TradeService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def country_data(self) -> json:
+    def country_data(self) -> object:
         """
         Sends HTTP POST request to TradeManagementRequests to get country data.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = TradeServiceRequest().country_data()
         try:
@@ -44,10 +44,10 @@ class TradeService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def customer_data(self) -> json:
+    def customer_data(self) -> object:
         """
         Sends HTTP POST request to TradeManagementRequests to get customer data.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = TradeServiceRequest().customer_data()
         try:
@@ -60,11 +60,11 @@ class TradeService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def crypto_currency_data(self, currency_id: int) -> json:
+    def crypto_currency_data(self, currency_id: int) -> object:
         """
         Sends HTTP POST request to TradeManagementRequests to get crypto data for provided currency ID.
         :param currency_id: Currency ID- int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = TradeServiceRequest().crypto_currency_data(currency_id)
         try:

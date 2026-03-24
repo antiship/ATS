@@ -12,7 +12,7 @@ class ObligationService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def convert_rate(self, currency_id: int, currency_id_2: int) -> json:
+    def convert_rate(self, currency_id: int, currency_id_2: int) -> object:
         """
         Sends HTTP POST request to ObligationService to calculate rate..
         :param currency_id: Base currency.

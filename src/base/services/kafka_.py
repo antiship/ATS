@@ -11,7 +11,7 @@ class KafkaService:
     kafka_headers = {'Content-Type': 'application/json'}
     
     @automation_logger(logger)
-    def get_supported_topics(self):
+    def get_supported_topics(self) -> object:
         """
 
         :return:
@@ -27,7 +27,7 @@ class KafkaService:
             raise e
 
     @automation_logger(logger)
-    def get_last_topic_record(self, topic):
+    def get_last_topic_record(self, topic) -> object:
         """
 
         @param topic:
@@ -44,7 +44,7 @@ class KafkaService:
             raise e
 
     @automation_logger(logger)
-    def send_subtract_transaction_operations(self, kafka_transaction):
+    def send_subtract_transaction_operations(self, kafka_transaction) -> object:
         """
 
         :param kafka_transaction:

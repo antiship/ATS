@@ -12,10 +12,10 @@ class VideoService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def get_videos(self) -> json:
+    def get_videos(self) -> object:
         """
         Sends HTTP POST request to VideoServiceRequest to get customer data.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = VideoServiceRequest().videos()
         try:
@@ -28,13 +28,13 @@ class VideoService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_playlist_videos(self, id_1: int, id_2: int, id_3: int) -> json:
+    def get_playlist_videos(self, id_1: int, id_2: int, id_3: int) -> object:
         """
         Sends HTTP POST request to VideoServiceRequest to get list of videos.
         :param id_1: ID- int.
         :param id_2: ID- int.
         :param id_3: ID- int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = VideoServiceRequest().get_playlist_videos(id_1, id_2, id_3)
         try:

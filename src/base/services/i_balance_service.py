@@ -10,12 +10,12 @@ class IBalanceService:
     balance_svc_headers = {'Content-Type': 'application/json'}
 
     @automation_logger(logger)
-    def get_currency_balance(self, customer_id: int, currency_id: int) -> json:
+    def get_currency_balance(self, customer_id: int, currency_id: int) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to get balance for provided currency.
         :param customer_id: Customer ID as an int.
         :param currency_id: Currency ID as an int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().get(customer_id, currency_id)
         try:
@@ -28,11 +28,11 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def get_all_currencies_balance(self, customer_id: int) -> json:
+    def get_all_currencies_balance(self, customer_id: int) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to get balance for all currencies.
         :param customer_id: Customer ID as an int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().get_all(customer_id)
         try:
@@ -45,12 +45,12 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def get_subtract_transactions(self, customer_id: int, currency_id: int) -> json:
+    def get_subtract_transactions(self, customer_id: int, currency_id: int) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to.
         :param customer_id: Customer ID as an int.
-        :param currency_id: ID of currenct - int.
-        :return: Response body as a json.
+        :param currency_id: ID of current - int.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().get_subtract_transactions(customer_id, currency_id)
         try:
@@ -63,13 +63,13 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def add_balance(self, customer_id: int, currency_id: int, deposit_amount: float) -> json:
+    def add_balance(self, customer_id: int, currency_id: int, deposit_amount: float) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to add some balance for provided customer.
         :param customer_id: Customer ID as an int.
         :param currency_id: Currency ID as an int.
-        :param deposit_amount: Amount as an float.
-        :return: Response body as a json.
+        :param deposit_amount: Amount as a float.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().add(customer_id, currency_id, deposit_amount)
         try:
@@ -82,13 +82,13 @@ class IBalanceService:
             raise e
     
     @automation_logger(logger)
-    def subtract_balance(self, customer_id: int, currency_id: int, subtract_amount: float) -> json:
+    def subtract_balance(self, customer_id: int, currency_id: int, subtract_amount: float) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to subtract some balance for provided customer.
         :param customer_id: Customer ID as an int.
         :param currency_id: Currency ID as an int.
-        :param subtract_amount: Amount as an float.
-        :return: Response body as a json.
+        :param subtract_amount: Amount as a float.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().subtract(customer_id, currency_id, subtract_amount)
         try:
@@ -101,13 +101,13 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def subtract_transaction_initialize(self, customer_id: int, currency_id: int, subtract_amount: float) -> json:
+    def subtract_transaction_initialize(self, customer_id: int, currency_id: int, subtract_amount: float) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to subtract transaction for provided customer.
         :param customer_id: Customer ID as an int.
         :param currency_id: Currency ID as an int.
-        :param subtract_amount: Amount as an float.
-        :return: Response body as a json.
+        :param subtract_amount: Amount as a float.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().subtract_transaction_initialize(customer_id, currency_id, subtract_amount)
         try:
@@ -120,11 +120,14 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def subtract_transaction_partial_rollback(self, guid, customer_id, currency_id, amount) -> json:
+    def subtract_transaction_partial_rollback(self, guid, customer_id, currency_id, amount) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to rollback partial subtract transaction for provided customer.
-        :param args: transaction_link- str, customer_id- int, currency_id- int, subtract_amount- float
-        :return: Response body as a json.
+        :param amount:
+        :param currency_id:
+        :param customer_id:
+        :param guid:
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().subtract_transaction_partial_rollback(guid, customer_id, currency_id, amount)
         try:
@@ -137,11 +140,11 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def subtract_transaction_partial_commit(self, *args) -> json:
+    def subtract_transaction_partial_commit(self, *args) -> object:
         """
-        Sends HTTP POST request to IBalanceServiceRequest to partial subtract transaction for provided customer.
+        Sends HTTP POST request to IBalanceServiceRequest to partially subtract transaction for provided customer.
         :param args: transaction_link- str, customer_id- int, currency_id- int, subtract_amount- float
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().subtract_transaction_partial_commit(*args)
         try:
@@ -154,13 +157,13 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def subtract_transaction_commit(self, transaction_link, customer_id, currency_id) -> json:
+    def subtract_transaction_commit(self, transaction_link, customer_id, currency_id) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to  subtract transaction for provided customer.
         :param transaction_link: GUID
         :param customer_id: Customer ID as an int.
         :param currency_id: Currency ID as an int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().subtract_transaction_commit(transaction_link, customer_id, currency_id)
         try:
@@ -173,13 +176,13 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def subtract_transaction_rollback(self, transaction_link, customer_id, currency_id) -> json:
+    def subtract_transaction_rollback(self, transaction_link, customer_id, currency_id) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to rollback subtract transaction for provided customer.
         :param transaction_link: GUID
         :param customer_id: Customer ID as an int.
         :param currency_id: Currency ID as an int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().subtract_transaction_rollback(transaction_link, customer_id, currency_id)
         try:
@@ -192,11 +195,11 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def subtract_transaction_commit_and_rollback_reminder(self, *args) -> json:
+    def subtract_transaction_commit_and_rollback_reminder(self, *args) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to subtract transaction....
         :param args: transaction_link- str, customer_id- int, currency_id- int, commit_amount- float
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().subtract_transaction_commit_and_rollback_reminder(*args)
         try:
@@ -209,11 +212,11 @@ class IBalanceService:
             raise e
 
     @automation_logger(logger)
-    def ensure_in_redis(self, customer_id) -> json:
+    def ensure_in_redis(self, customer_id) -> object:
         """
         Sends HTTP POST request to IBalanceServiceRequest to republish current customer balance into Redis.
         :param customer_id: Customer ID as an int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = IBalanceServiceRequest().ensure_in_redis(customer_id)
         try:

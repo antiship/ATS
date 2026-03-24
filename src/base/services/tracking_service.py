@@ -12,7 +12,7 @@ class TrackingService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def add_visit(self) -> json:
+    def add_visit(self) -> object:
         """
         Sends HTTP POST request to TrackingServiceRequest to add record for visit.
         :return: Response body as a json.

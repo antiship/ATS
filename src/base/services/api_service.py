@@ -12,11 +12,11 @@ class ApiService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def create_api_token(self, token_name: str) -> json:
+    def create_api_token(self, token_name: str) -> object:
         """
         Sends HTTP POST request to ApiService to generate api_token and secret.
         :param token_name: Any string.
-        :return: Response body as json.
+        :return: Response body as JSON.
         """
         payload = ApiServiceRequest().create_api_token(token_name)
         try:
@@ -29,7 +29,7 @@ class ApiService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def activate_api_token(self, token_id: int, token_state: bool) -> json:
+    def activate_api_token(self, token_id: int, token_state: bool) -> object:
         """
         Sends HTTP POST request to ApiService to make the api_token Active/Not Active.
         :param token_id: Api token ID- int.
@@ -47,11 +47,11 @@ class ApiService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def delete_api_token(self, token_id: int) -> json:
+    def delete_api_token(self, token_id: int) -> object:
         """
         Sends HTTP POST request to ApiService to invalidate api_token.
         :param token_id: Api token ID- int.
-        :return: Response body as json.
+        :return: Response body as JSON.
         """
         payload = ApiServiceRequest().delete_api_token(token_id)
         try:
@@ -64,7 +64,7 @@ class ApiService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def update_api_token(self, token_id, token_name, ip_1="93.178.204.228", ip_2="90.178.204.228") -> json:
+    def update_api_token(self, token_id, token_name, ip_1="93.178.204.228", ip_2="90.178.204.228") -> object:
         """
         # 1- token_id, 2- token_name, 3- ip_1, 4- ip_2
         Sends HTTP POST request to ApiService to activate/deactivate api_token.
@@ -72,7 +72,7 @@ class ApiService(ServiceRoute):
         :param token_name:
         :param ip_1:
         :param ip_2: 
-        :return: Response body as json.
+        :return: Response body as JSON.
         """
         payload = ApiServiceRequest().update_api_token(token_id, token_name, ip_1, ip_2)
         try:
@@ -85,12 +85,12 @@ class ApiService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def renew_api_token(self, token_name: str, token_id: int) -> json:
+    def renew_api_token(self, token_name: str, token_id: int) -> object:
         """
         Sends HTTP POST request to ApiService to update expiration of the given api_token.
         :param token_name: Api token name - str.
         :param token_id: Api token ID- int.
-        :return: Response body as json.
+        :return: Response body as JSON.
         """
         payload = ApiServiceRequest().renew_api_token(token_name, token_id)
         try:
@@ -103,10 +103,10 @@ class ApiService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_api_tokens(self) -> json:
+    def get_api_tokens(self) -> object:
         """
         Sends HTTP POST request to ApiService to receive all customer api_tokens.
-        :return: Response body as json.
+        :return: Response body as JSON.
         """
         payload = ApiServiceRequest().get_api_tokens()
         try:

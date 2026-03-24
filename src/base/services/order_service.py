@@ -14,11 +14,11 @@ class OrderService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def create_order(self, order) -> json:
+    def create_order(self, order) -> object:
         """
         Sends HTTP POST request to OrderService to create Market or Limit order.
         :param order: Order object.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().create_order(order)
         try:
@@ -38,11 +38,11 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def create_order_sync(self, order) -> json:
+    def create_order_sync(self, order) -> object:
         """
         Sends HTTP POST Synchronously request to OrderService to create Market or Limit order.
         :param order: Order object.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().create_order_sync(order)
         try:
@@ -65,11 +65,11 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def cancel_order(self, order_id) -> json:
+    def cancel_order(self, order_id) -> object:
         """
         Sends HTTP POST request to OrderService to cancel order by ID.
         :param order_id: If String it will be sent as External ID , in case of Integer will be used internal ID.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().cancel_order(order_id)
         try:
@@ -82,13 +82,13 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_order_history(self, direction=None, product_id=None, instrument_id=None, *args) -> json:
+    def get_order_history(self, direction=None, product_id=None, instrument_id=None, *args) -> object:
         """
         Sends HTTP POST request to OrderService to receive all created orders.
         :param direction: Sell/Buy as string.
         :param product_id: Product ID- int.
         :param instrument_id: 
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().order_history(direction, product_id, instrument_id, args)
         try:
@@ -101,13 +101,13 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def export_order_history(self, direction, product_id=None, instrument_id=None) -> json:
+    def export_order_history(self, direction, product_id=None, instrument_id=None) -> object:
         """
         Sends HTTP POST request to OrderService to receive all created orders.
         :param direction: Sell/Buy as string.
         :param product_id: Product ID- int.
         :param instrument_id: Instrument ID- int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().export_order_history(direction, product_id, instrument_id)
         try:
@@ -120,13 +120,13 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_trades_history(self, direction=None, product_id=None, instrument_id=None, *args) -> json:
+    def get_trades_history(self, direction=None, product_id=None, instrument_id=None, *args) -> object:
         """
         Sends HTTP POST request to OrderService to receive all created trades.
         :param direction: Sell/Buy as string.
         :param product_id: Product ID- int.
         :param instrument_id: Instrument ID- int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().trades_history(direction, product_id, instrument_id, args)
         try:
@@ -139,13 +139,13 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def export_trades_history(self, direction, product_id=None, instrument_id=None) -> json:
+    def export_trades_history(self, direction, product_id=None, instrument_id=None) -> object:
         """
         Sends HTTP POST request to OrderService to receive all created trades.
         :param direction: Sell or Buy as a string.
         :param product_id: Product ID- int.
         :param instrument_id: Instrument ID- int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().export_trade_history(direction, product_id, instrument_id)
         try:
@@ -158,11 +158,11 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_open_orders(self, product_id=None) -> json:
+    def get_open_orders(self, product_id=None) -> object:
         """
         Sends HTTP POST request to OrderService to receive all opened orders.
         :param product_id: Product ID- int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().open_orders(product_id)
         try:
@@ -175,11 +175,11 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def export_open_orders(self, product_id=None) -> json:
+    def export_open_orders(self, product_id=None) -> object:
         """
         Sends HTTP POST request to OrderService to receive all created trades.
         :param product_id: Product ID- int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().export_open_orders(product_id)
         try:
@@ -192,11 +192,11 @@ class OrderService(ServiceRoute):
             raise e
 
     @automation_logger(logger)
-    def get_order_book(self, instrument_id=None) -> json:
+    def get_order_book(self, instrument_id=None) -> object:
         """
         Sends HTTP POST request to OrderService to receive all created trades.
         :param instrument_id: Instrument ID- int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = OrderServiceRequest().get_order_book(instrument_id)
         try:

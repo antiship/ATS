@@ -1,7 +1,5 @@
 import json
-
 import requests
-
 from config_definitions import BaseConfig
 from src.base import logger, crm_base_url
 from src.base.log_decorator import automation_logger
@@ -18,7 +16,7 @@ class Crm:
                                  'Chrome/71.0.3578.80 Safari/537.36', 'DisablePermissionsCache': '1'}
 
     @automation_logger(logger)
-    def log_in_to_crm(self, username=BaseConfig.CRM_USERNAME, password=BaseConfig.CRM_PASSWORD):
+    def log_in_to_crm(self, username=BaseConfig.CRM_USERNAME, password=BaseConfig.CRM_PASSWORD) -> bool:
         """
         Sends HTTP POST request to log in to CRM and stores session.
         :param username: User credentials.
@@ -39,10 +37,10 @@ class Crm:
             raise e
 
     @automation_logger(logger)
-    def approve_customer(self, customers) -> str:
+    def approve_customer(self, customers) -> object:
         """
         Log In to CRM and next HTTP POST request to approve customer by provided ID.
-        :param customers: Customer ID as a int.
+        :param customers: Customer ID as an int.
         :return: Response body as a String (contains text message).
         """
         assert self.log_in_to_crm()
@@ -69,7 +67,7 @@ class Crm:
             raise e
 
     @automation_logger(logger)
-    def update_customer_deposit(self, customer_id: int, customer: object, *args) -> str:
+    def update_customer_deposit(self, customer_id: int, customer: object, *args) -> object:
         """
         Sends HTTP POST request to update deposit status to "2"- approved.
         :param customer_id: Customer ID as a int.
@@ -91,7 +89,7 @@ class Crm:
             raise e
 
     @automation_logger(logger)
-    def add_new_deposit(self, customer_id: int, customer: object, *args) -> json:
+    def add_new_deposit(self, customer_id: int, customer: object, *args) -> object:
         """
         Sends HTTP POST request to add new deposit for provided customer.
         :param customer_id: Customer ID as a int.
@@ -117,8 +115,8 @@ class Crm:
     def get_deposit_by_id(self, customer_id: int, deposit_id: float) -> str:
         """
         Sends HTTP GET request to CRM that selects customer deposit.
-        :param customer_id: Customer ID as a int.
-        :param deposit_id: Deposit ID as a int.
+        :param customer_id: Customer ID as an int.
+        :param deposit_id: Deposit ID as an int.
         :return: Response body as a String (contains text message).
         """
         self.crm_headers.update({'Referer': self.crm_reference_url + str(customer_id)})
@@ -135,7 +133,7 @@ class Crm:
             raise e
 
     @automation_logger(logger)
-    def get_customer_deposits(self, customer_id: int) -> str:
+    def get_customer_deposits(self, customer_id: int) -> object:
         """
         Sends HTTP GET request to CRM that selects all customer deposit.
         :param customer_id: Customer ID as a String.
@@ -156,11 +154,11 @@ class Crm:
             raise e
 
     @automation_logger(logger)
-    def get_customer_withdrawals(self, customer_id: int) -> json:
+    def get_customer_withdrawals(self, customer_id: int) -> object:
         """
         Sends HTTP GET request to CRM that selects all customer withdrawals.
         :param customer_id: Customer ID as a int.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = CrmRequest().get_customer_withdrawals()
         self.crm_headers.update({'Referer': self.crm_reference_url + str(customer_id)})
@@ -177,13 +175,13 @@ class Crm:
             raise e
 
     @automation_logger(logger)
-    def update_customer_details(self, customer_id: int, customer: object, phone: str) -> str:
+    def update_customer_details(self, customer_id: int, customer: object, phone: str) -> object:
         """
         Sends HTTP GET request to CRM that selects all customer deposit.
         :param customer_id: Customer ID as a int.
         :param customer: Customer object.
         :param phone: Phone number to update as a str without '+' and 13 chars length
-        return: Response body as a json.
+        return: Response body as a JSON.
         """
         payload = CrmRequest().save_customer_information(customer, phone)
         self.crm_headers.update({'Referer': self.crm_reference_url + str(customer_id)})
@@ -200,7 +198,7 @@ class Crm:
             raise e
 
     @automation_logger(logger)
-    def save_permissions(self):
+    def save_permissions(self) -> object:
 
         assert self.log_in_to_crm()
 
@@ -210,7 +208,8 @@ class Crm:
         self.crm_headers.update({'Referer': self.crm_url + "/permissions/"})
 
         try:
-            _response = requests.request("GET", url, headers=self.crm_headers, params=querystring, allow_redirects=True)
+            _response = requests.request("GET", url, headers=self.crm_headers, params=querystring,
+                                         allow_redirects=True)
             body = json.loads(_response.text)
             logger.logger.info("Service Response: {0}".format(body))
             return body
@@ -228,7 +227,7 @@ class Crm:
                      3- currency_name,
                      4- currency_id,
                      5- withdrawal_amount
-        :param status_id: 1- pending system, 2- approved, 3- declined, 4- cancelled, 5- pending customer.
+        :param status_id: 1- pending system, 2- approved, 3- declined, 4- canceled, 5- pending customer.
         :return: Response body as a String (contains text message).
         """
         self.log_in_to_crm()

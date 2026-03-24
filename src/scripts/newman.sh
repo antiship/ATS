@@ -6,6 +6,8 @@ mails=(antons@coins.exchange)
 declare -A envs
 envs["prod"]="${HOME}/src/repository/files/QA.postman_environment.json"
 # shellcheck disable=SC1068
+# shellcheck disable=SC2283
+# shellcheck disable=SC2283
 col = "${HOME}/src/repository/files/RegistrationWithCustomEmail.postman_collection.json"
 
 # shellcheck disable=SC2068

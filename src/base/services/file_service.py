@@ -11,11 +11,11 @@ class FileService:
     file_svc_headers.update({'connection': 'close'})
 
     @automation_logger(logger)
-    def upload_file(self, file_: str) -> json:
+    def upload_file(self, file_: str) -> object:
         """
         Sends HTTP POST request to FileService to upload file (needed for registration).
         :param file_: Path to the file to upload.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         try:
             with open(file_, 'rb') as f:

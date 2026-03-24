@@ -12,12 +12,12 @@ class CustomerService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def update_customer(self, dxex_mode=None, api_mode=None) -> json:
+    def update_customer(self, dxex_mode=None, api_mode=None) -> object:
         """
-        Sends HTTP POST request to CustomerService to update customer modes (turn- on/off).
+        Sends HTTP POST request to CustomerService to update customer modes (turn-on/off).
         :param dxex_mode: True if active and False otherwise.
         :param api_mode: True if active and False otherwise.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = CustomerServiceRequest().update_customer(dxex_mode, api_mode)
         try:

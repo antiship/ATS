@@ -10,7 +10,6 @@ from src.base.customer.registered_customer import RegisteredCustomer
 
 orders_dict = Utils.read_json_config(BaseConfig.MM_CONFIG)
 
-
 @automation_logger(logger)
 def set_redis_price():
     for order in list(orders_dict["orders"]):

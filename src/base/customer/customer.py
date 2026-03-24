@@ -16,6 +16,8 @@ from src.base.log_decorator import automation_logger
 
 class Customer(object):
 
+    api_token_state: bool
+
     @automation_logger(logger)
     def __init__(self, row_number=None, *args):
         """
@@ -68,7 +70,7 @@ class Customer(object):
     @automation_logger(logger)
     def set_customer_details(self, index=0):
         """
-        Setter- reads wtp_tests_customers.csv and chooses row according to provided index, if index not provided it will
+        Setter-reads wtp_tests_customers.csv and chooses row according to provided index, if index not provided it will
         be chosen randomly.
         :param index: Row to select from file.
         :return: Customer details (properties).
@@ -152,7 +154,7 @@ class Customer(object):
         """
         if self.auth_token:
             try:
-                if self.api_token_state is False:
+                if not self.api_token_state:
                     api_tokens = self.postman.api_service.get_api_tokens()
                     logger.logger.info("get_api_token", api_tokens)
                     assert api_tokens['error'] is None
@@ -189,6 +191,7 @@ class Customer(object):
                 logger.logger.exception("get_api_access failed: ", e)
         else:
             logger.logger.error("get_api_access method needs activated postman client (with auth_token) !")
+            return None
 
     @automation_logger(logger)
     def customer_registration(self):
@@ -379,8 +382,10 @@ class Customer(object):
         :return:
         """
         orders = []
-        unmatched_orders = Order.orders_data_converter(Instruments.get_orders_by_customer_mysql(customer_id, 1))
-        partially_filled = Order.orders_data_converter(Instruments.get_orders_by_customer_mysql(customer_id, 1, 1))
+        unmatched_orders = Order.orders_data_converter(Instruments.get_orders_by_customer_mysql(customer_id,
+                                                                                                1))
+        partially_filled = Order.orders_data_converter(Instruments.get_orders_by_customer_mysql(customer_id,
+                                                                                            1, 1))
 
         if unmatched_orders:
             orders.extend(unmatched_orders)
@@ -489,6 +494,7 @@ class Customer(object):
         # Instruments.save_into_file(self.email + "," + self.password + "," + self.username + "\n", self.crm_users)
         if self.postman.crm.log_in_to_crm(self.username, self.password):
             return self.username, self.password
+        return None
 
     @automation_logger(logger)
     def add_deposit_on_customer_balance(self, currency_id, amount):
@@ -504,12 +510,14 @@ class Customer(object):
                                    F"current deposit: {amount}")
                 _response = self.postman.balance_service.add_balance(self.customer_id, currency_id, amount)
                 assert _response['result']['transactionGuid']
-                assert "AAAAA" in _response['result']['transactionGuid']
+                assert 'AAAAA' in _response['result']['transactionGuid']
                 return True
             else:
                 logger.logger.exception("Error occurred with add_customer_deposit...")
+                return None
         else:
             logger.logger.exception("Error occurred with add_customer_balance...")
+            return None
 
     @automation_logger(logger)
     def set_customer_status(self, status):

@@ -106,6 +106,7 @@ class Order(object):
             except Exception as e:
                 logger.logger.error("orders_data_conversion has failed:", e)
                 raise e
+        return None
 
     @staticmethod
     @automation_logger(logger)

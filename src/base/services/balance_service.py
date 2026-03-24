@@ -12,12 +12,12 @@ class BalanceService(ServiceRoute):
         self.headers.update({'Authorization': auth_token})
 
     @automation_logger(logger)
-    def get_balance(self, *args) -> json:
+    def get_balance(self, *args) -> object:
         """
-        Authorized method- needs auth_token in request header. (goes to API URL)
+        Authorized method-needs auth_token in request header. (goes to API URL)
         Sends HTTP POST request to IBalanceServiceRequest to get balance for provided currency.
         :param args: currencies (if not specified it return all available).
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = BalanceServiceRequest().get_balance(args)
         try:
