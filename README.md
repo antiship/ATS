@@ -102,7 +102,7 @@ TESTS
 2. ui - ui tests except smoke
 3. trading_sanity - sanity for trading
 4. payment_sanity - sanity for payment
-5. e2e - end to end tests
+5. e2e - end-to-end tests
 6. balance - as feature across project
 7. withdrawal - as feature across project
 8. deposit - as feature across project
@@ -245,9 +245,7 @@ ssh-keygen -t rsa -C "username@example.com" -b 4096
 git remote show origin
 git remote rename <remote_from> <remote_to>
 git remote remove <remote>
-git clone https://gitlab.com/[project_path].git    
-git clone git@gitlab.com:[project_path].git
-git checkout -b qa origin/qa
+git clone https://gitlab.com/[project_path].git  clone git@gitlab.com:[project_path].git checkout -b qa origin/qa
 git checkout -b dev origin/dev
 git checkout qa
 git checkout dev
