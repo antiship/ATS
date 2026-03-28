@@ -10,10 +10,10 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         self.method = "Authorization."
 
     @automation_logger(logger)
-    def session_data(self):
+    def session_data(self) -> str:
         """
         Sending a request to retrieve customer's session data.
-        @return: request body as json dump string.
+        @return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SessionData"
         self.params.extend([])
@@ -22,11 +22,11 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def enable_tfa_step_1(self, password):
+    def enable_tfa_step_1(self, password: str) -> str:
         """
-
+        Sending a request to enable TFA.
         @param password: String.
-        @return: request body as json dump string.
+        @return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "EnableTwoFactorAuthentication"
         self.params.extend([
@@ -43,11 +43,11 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def enable_tfa_step_2(self, state: bool):
+    def enable_tfa_step_2(self, state: bool) -> str:
         """
-        # This method is used to create a request that enables the tfa . Enabled in 2 steps.  Step 2.
-        :param state: Turn- On/Turn- Off
-        :return: request body as json dump string.
+        This method is used to create a request that enables the tfa . Enabled in 2 steps.  Step 2.
+        :param state: True -> Turn-On / False -> Turn-Off
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "EnableTwoFactorAuthentication"
         self.params.extend([
@@ -65,12 +65,12 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def login_by_credentials(self, email, password):
+    def login_by_credentials(self, email: str, password: str) -> str:
         """
 
         :param email:
         :param password:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "LoginByCredentials"
         self.params.extend([
@@ -89,7 +89,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         """
 
         :param tfa_token:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "LoginByTwoFactorToken"
         self.params.extend([
@@ -109,7 +109,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
 
         :param api_token:
         :param secret:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "LoginByToken"
         self.params.extend([
@@ -126,7 +126,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def log_out(self):
         """
 
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "Logout"
         self.params.extend([])
@@ -140,7 +140,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
 
         :param email:
         :param password:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "GeneratePasswordHash"
         self.params.extend([
@@ -158,7 +158,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         """
 
         :param customer:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "UpdatePersonalDetails"
         self.params.extend([
@@ -187,7 +187,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         """
 
         :param auth_token:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "ValidateToken"
         self.params.extend([
@@ -204,7 +204,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         """
 
         :param customer:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SignUp"
         try:
@@ -237,7 +237,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
 
         :param email:
         :param ver_token:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SignUpStep"
         self.params.extend([
@@ -259,7 +259,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         """
 
         :param customer:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SignUpStep"
         self.params.extend([
@@ -280,7 +280,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def step_four(self):
         """
 
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SignUpStep"
         self.params.extend([
@@ -300,7 +300,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         """
 
         :param customer:
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SignUpStep"
         self.params.extend([
@@ -333,7 +333,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def step_six(self):
         """
 
-        :return: request body as json dump string.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SignUpStep"
         self.params.extend([

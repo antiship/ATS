@@ -10,12 +10,12 @@ class AssetServiceRequest(ApiRequestSchema):
         self.method = "AssetManagement."
 
     @automation_logger(logger)
-    def history(self, instrument_id=None, type_="1d"):
+    def history(self, instrument_id=None, type_="1d") -> str:
         """
         Builds request body for AssetService.get_history().
-        :param instrument_id: ID of an instrument- int, not mandatory (without- for all instruments).
+        :param instrument_id: ID of an instrument- int, not mandatory (without-for all instruments).
         :param type_: String ("1m", "5m", "1h", "1d") - Tenor (good till date option).
-        :return: Request body as json.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "History"
         if instrument_id:
@@ -47,11 +47,11 @@ class AssetServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def set_favorite_instrument(self, instrument_id: int):
+    def set_favorite_instrument(self, instrument_id: int) -> str:
         """
         Builds request body for AssetService.set_favorite_instrument().
         :param instrument_id: ID of an instrument- int.
-        :return: Request body as json.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SetFavouriteInstrument"
         self.params.extend([
@@ -64,11 +64,11 @@ class AssetServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def remove_favorite_instrument(self, instrument_id: int):
+    def remove_favorite_instrument(self, instrument_id: int) -> str:
         """
         Builds request body for AssetService.remove_favorite_instrument().
         :param instrument_id: ID of an instrument- int
-        :return: Request body as json.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "RemoveFavouriteInstrument"
         self.params.extend([
@@ -81,12 +81,12 @@ class AssetServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def get_instruments(self, symbol=None, product_id=None):
+    def get_instruments(self, symbol=None, product_id=None) -> str:
         """
         Builds request body for AssetService.get_instruments().
         :param symbol: String as "BTC/EUR, not mandatory.
         :param product_id: Integer as 2, not mandatory.
-        :return: Request body as json.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "GetInstruments"
         if symbol and product_id:
@@ -115,12 +115,12 @@ class AssetServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def get_ticker(self, instrument_id: int, currency_id: int):
+    def get_ticker(self, instrument_id: int, currency_id: int) -> str:
         """
         Builds request body for AssetService.get_ticker().
         :param instrument_id: ID of an instrument- int.
         :param currency_id: ID of a currency- int.
-        :return: Request body as json.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "GetTicker"
         self.params.extend([
@@ -134,11 +134,11 @@ class AssetServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def get_last_trades(self, instrument_id: int):
+    def get_last_trades(self, instrument_id: int) -> str:
         """
         Builds request body for AssetService.get_last_trade().
-        :param instrument_id: ID of an instrument- int.
-        :return: Request body as json.
+        :param instrument_id: Instrument ID in the system.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "GetLastTrades"
         self.params.extend([

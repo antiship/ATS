@@ -10,11 +10,11 @@ class ApiServiceRequest(ApiRequestSchema):
         self.method = "Api."
 
     @automation_logger(logger)
-    def create_api_token(self, token_name: str):
+    def create_api_token(self, token_name: str) -> str:
         """
         Builds request body for ApiService.create_api_token()
         :param token_name: Any string.
-        :return: Request body.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "CreateApiToken"
         self.params.extend([
@@ -30,12 +30,12 @@ class ApiServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def change_api_token_activation(self, token_id: int, token_state: bool):
+    def change_api_token_activation(self, token_id: int, token_state: bool) -> str:
         """
         Builds request body for ApiService.activate_api_token()
         :param token_id: ID to activate.
         :param token_state: True if active and False otherwise.
-        :return: Request body.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "ChangeApiTokenActivation"
         self.params.extend([
@@ -49,11 +49,11 @@ class ApiServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def delete_api_token(self, token_id: int):
+    def delete_api_token(self, token_id: int) -> str:
         """
         Builds request body for ApiService.delete_api_token()
         :param token_id: ID to delete.
-        :return: Request body.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "DeleteApiToken"
         self.params.extend([
@@ -66,14 +66,14 @@ class ApiServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def update_api_token(self, token_id, token_name, ip_1, ip_2):
+    def update_api_token(self, token_id: int, token_name: str, ip_1: str, ip_2: str) -> str:
         """
         Builds request body for ApiService.update_api_token()
-        :param token_id:
-        :param token_name:
-        :param ip_1:
-        :param ip_2: 
-        :return: Request body.
+        :param token_id: Token ID to update.
+        :param token_name: Token name to update.
+        :param ip_1: IP.
+        :param ip_2: IP.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "UpdateApiToken"
         self.params.extend([
@@ -88,12 +88,12 @@ class ApiServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def renew_api_token(self, api_key: str, token_id: int):
+    def renew_api_token(self, api_key: str, token_id: int) -> str:
         """
         Builds request body for ApiService.renew_api_token()
-        :param api_key: String (smae as api token name).
-        :param token_id: integer.
-        :return: Request body.
+        :param api_key: String (same as api token name).
+        :param token_id: Token ID to renew.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "RenewApiToken"
         self.params.extend([
@@ -110,10 +110,10 @@ class ApiServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def get_api_tokens(self):
+    def get_api_tokens(self) -> str:
         """
         Builds request body for ApiService.get_api_token()
-        :return: Request body.
+        :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "GetApiTokens"
         self.params.extend([{}])

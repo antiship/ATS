@@ -15,7 +15,7 @@ class TrackingService(ServiceRoute):
     def add_visit(self) -> object:
         """
         Sends HTTP POST request to TrackingServiceRequest to add record for visit.
-        :return: Response body as a json.
+        :return: Response body as a JSON.
         """
         payload = TrackingServiceRequest().add_visit()
         try:
