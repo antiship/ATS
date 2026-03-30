@@ -1,4 +1,5 @@
 from src.base import logger
+from src.base.customer import Customer
 from src.base.log_decorator import automation_logger
 from src.base.services.svc_requests.request_constants import *
 from src.base.services.svc_requests.request_schema import ApiRequestSchema
@@ -85,7 +86,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def login_by_tfa_token(self, tfa_token: str):
+    def login_by_tfa_token(self, tfa_token: str) -> str:
         """
 
         :param tfa_token:
@@ -104,7 +105,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def login_by_token(self, api_token: str, secret: str):
+    def login_by_token(self, api_token: str, secret: str) -> str:
         """
 
         :param api_token:
@@ -123,7 +124,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def log_out(self):
+    def log_out(self) -> str:
         """
 
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
@@ -135,7 +136,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def generate_password_hash(self, email: str, password: str):
+    def generate_password_hash(self, email: str, password: str) -> str:
         """
 
         :param email:
@@ -154,7 +155,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def update_personal_details(self, customer):
+    def update_personal_details(self, customer: customer) -> str:
         """
 
         :param customer:
@@ -368,7 +369,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         :param link1:
         :param link2:
         :param link3:
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "SignUpStep"
         self.params.extend([

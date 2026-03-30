@@ -1,5 +1,7 @@
 import random
 import string
+from typing import Any
+
 import arrow
 import pymysql
 from src.base import logger
@@ -227,26 +229,30 @@ class SqlDb:
 
     @classmethod
     @automation_logger(logger)
-    def update_reference_price_by_instrument(cls, instrument_id):
+    def update_reference_price_by_instrument(cls, instrument_id: str) -> float | bool | None:
         """
         Connects to SQL DB and get Reference Price value by instrument id.
-        :param instrument_id: Id of instrument as int.
-        :return: Reference Price value before update.
+        :param instrument_id: Some String.
+        :return: Reference Price value before update as Float.
         """
-        reference_price_before = float(cls.run_mysql_query(
-            F"SELECT referencePriceRatio FROM instruments WHERE id = {instrument_id};")[0][0])
+        try:
+            reference_price_before = float(cls.run_mysql_query(
+                F"SELECT referencePriceRatio FROM instruments WHERE id = {instrument_id};")[0][0])
 
-        cls.run_mysql_query(F"UPDATE instruments SET referencePriceRatio = 1.50000000 WHERE id = {instrument_id};")
-
-        return reference_price_before
+            cls.run_mysql_query(F"UPDATE instruments SET referencePriceRatio = 1.50000000 WHERE id = {instrument_id};")
+            if reference_price_before:
+                return reference_price_before
+        except Exception as e:
+            logger.logger.error(F"Failed to update reference price by instrument {instrument_id}", e)
+            return False
 
     @classmethod
     @automation_logger(logger)
-    def get_currency_by_instrument(cls, instrument_id):
+    def get_currency_by_instrument(cls, instrument_id: str) -> tuple[int, int] | bool:
         """
         Receives an instrument ID, returns base and quoted currency ID's.
-        :param instrument_id:
-        :return: base currency ID, quoted currency ID.
+        :param instrument_id: Some str
+        :return: base currency ID, quoted currency ID as a tuple
         """
         try:
 
@@ -270,7 +276,7 @@ class SqlDb:
 
     @classmethod
     @automation_logger(logger)
-    def get_transaction_fees(cls, currency_id, fee_type=None):
+    def get_transaction_fees(cls, currency_id: str, fee_type=None) -> list[int] | None | bool:
         """
         This method can be used to get deposit ar withdrawal fee size.
         :param currency_id:
@@ -285,15 +291,15 @@ class SqlDb:
 
         try:
             result = cls.run_mysql_query(query)
-            return list(result[0])
-
+            if result:
+                return list(result[0])
         except Exception as e:
             logger.logger.error(F"Failed to get the required fee size for currency {currency_id}", e)
             return False
 
     @classmethod
     @automation_logger(logger)
-    def get_min_order_amount(cls, instrument_id):
+    def get_min_order_amount(cls, instrument_id: str) -> None | float | bool:
         """
         Connects to SQL DB and get value min of order amount of instrument.
         :param instrument_id: Id of instrument as int.
@@ -301,14 +307,20 @@ class SqlDb:
         """
         instrument_name_query = F"SELECT name FROM instruments WHERE id = {instrument_id};"
         instrument_name = str(cls.run_mysql_query(instrument_name_query)[0][0])
-        min_order_amount = \
-            (cls.run_mysql_query(
-                F"SELECT minOrderQuantity FROM instruments WHERE name = '{instrument_name}';")[0][0])
-        return float(min_order_amount)
+
+        try:
+            min_order_amount = \
+                float(cls.run_mysql_query(
+                    F"SELECT minOrderQuantity FROM instruments WHERE name = '{instrument_name}';")[0][0])
+            if min_order_amount:
+                return min_order_amount
+        except Exception as e:
+            logger.logger.error(F"Failed to get min order amount: {e}")
+            return False
 
     @classmethod
     @automation_logger(logger)
-    def get_membership_fee_size(cls, fee_plan, is_discounted):
+    def get_membership_fee_size(cls, fee_plan: str, is_discounted: str) -> int | bool:
         """
         Method returns membership fee size by Fee Plan and Fee Mode (Discounted / Regular)
         :param fee_plan:
@@ -323,79 +335,80 @@ class SqlDb:
         try:
             result = cls.run_mysql_query(query)
             return result[0][3]
-
         except Exception as e:
             logger.logger.error(F"Failed to get membership fee size: {e}")
             return False
 
     @classmethod
     @automation_logger(logger)
-    def get_cumulative_fee_by_trade(cls, trade_id, convert=None):
+    def get_cumulative_fee_by_trade(cls, trade_id: str, convert=None) -> int | None | bool:
         """
         Returns Cumulative Fee by Trade ID. Converts the Fee to USD if the "convert" flag is provided.
         :param convert:
         :param trade_id:
-        :return:
+        :return: Cumulative Fee as Integer
         """
         query = F"SELECT * FROM fees WHERE fees.tradeId = {trade_id};"
 
         try:
             result = cls.run_mysql_query(query)
-            if result is not None and convert:
+            if result and convert:
                 return result[0][5] * result[0][8]
-            elif result is not None:
+            elif result:
                 return result[0][5]
             else:
                 return 0
-
         except Exception as e:
             logger.logger.error(F"Failed to get cumulative fee size: {e}")
             return False
 
     @classmethod
     @automation_logger(logger)
-    def get_currency_tail_digits(cls, currency_id):
+    def get_currency_tail_digits(cls, currency_id: str) -> int | None | bool:
         """
         Provides tail digits for the selected currency.
 
-        :param currency_id:
+        :param currency_id: Some str
         :return: tail digits.
         """
         query = f"select * from currencies where id = {currency_id}"
 
         try:
             result = cls.run_mysql_query(query)
-            if result is not None:
+            if result:
                 return result[0][8]
-
         except Exception as e:
             logger.logger.error(F"Failed to get currency tail digits: {e}")
             return False
 
     @classmethod
     @automation_logger(logger)
-    def get_currencies_list(cls):
-
+    def get_currencies_list(cls) -> None | list[int] | bool:
+        """
+        Provides Currencies as list of Integers
+        :rtype: None | list[int] | bool
+        :return:
+        """
         query = f"select id from currencies"
 
         try:
             result = cls.run_mysql_query(query)
-            if result is not None:
+            if result:
                 return [int(x[0]) for x in result]
-
+            return None
         except Exception as e:
             logger.logger.error(F"Failed to get currencies list: {e}")
             return False
 
     @classmethod
     @automation_logger(logger)
-    def set_cumulative_fee_dxchash_disabled(cls, id_, step_usd=None, fee=None):
+    def set_cumulative_fee_dxchash_disabled(cls, id_, step_usd=None, fee=None) -> bool | None:
         """
         Set Fee or/and Step USD for Regular Cumulative Fee.
+        :param fee: None OR int
         :param id_: as int, 7 - step One, 8 - step Two, 11 - step Three
-        :param step_usd: as float
-        :param fee: as float
-        :return: True. Returns False on failure.
+        :param step_usd: as float :param fee: as int
+        :return: Returns True if passed clear. Returns False on failure.
         """
         query_1 = (F"UPDATE params_cumulative_fee SET stepUsd = {step_usd}, feeMultiplier = {fee} WHERE id = "
                    F"{id_} and feePlanId = 2;")
@@ -418,57 +431,54 @@ class SqlDb:
 
     @classmethod
     @automation_logger(logger)
-    def get_id_trade_by_order_id(cls, order_id):
+    def get_id_trade_by_order_id(cls, order_id: str) -> bool | None | Any:
         """
         Provides trade Id from DB by order Id
 
-        :param order_id:
+        :param order_id: Some str
         :return: trade_id as str
         """
         query = F"SELECT id FROM trades_crypto WHERE orderId = {order_id};"
         try:
             result = cls.run_mysql_query(query)
-            if result is not None:
+            if result:
                 return result[0][0]
-
         except Exception as e:
             logger.logger.error(F"Failed to get_id_trade_by_order_id: {e}")
             return False
 
     @classmethod
     @automation_logger(logger)
-    def get_fee_amount_by_trade(cls, trade_id):
+    def get_fee_amount_by_trade(cls, trade_id: str) -> None | float | bool:
         """
         Provides fee amount  from DB by Trade ID
 
-        :param trade_id:
+        :param trade_id: Some str
         :return: fee amount as float
         """
         query = F"SELECT feeAmount FROM fees WHERE tradeId = {trade_id};"
         try:
             result = cls.run_mysql_query(query)
-            if result is not None:
+            if result:
                 return float(result[0][0])
-
         except Exception as e:
             logger.logger.error(F"Failed to get_fee_amount_by_trade: {e}")
             return False
 
     @classmethod
     @automation_logger(logger)
-    def get_currency_name_by_currency_id(cls, currency_id):
+    def get_currency_name_by_currency_id(cls, currency_id: str) -> str | None | bool:
         """
         Provides currency name by currency id
 
-        :param currency_id: currency id
+        :param currency_id: Some str
         :return: currency name as string
         """
         query = F"SELECT code FROM currencies WHERE id = {currency_id};"
         try:
             result = cls.run_mysql_query(query)
-            if result is not None:
+            if result:
                 return str(result[0][0])
-
         except Exception as e:
             logger.logger.error(F"Failed to get_currency_name_by_currency_id: {e}")
             return False

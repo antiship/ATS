@@ -2,6 +2,10 @@ import time
 import string
 import random
 import datetime
+from typing import Any
+
+from typing_extensions import LiteralString
+
 from src.base.browser import Browser
 from src.base import logger, test_token
 from src.base.equipment.bank import Bank
@@ -376,7 +380,7 @@ class Customer(object):
     @automation_logger(logger)
     def get_open_orders_mysql(cls, customer_id):
         """
-        Method return a list of all open orders by customer, unmatched an partially filled
+        Method return a list of all open orders by customer, unmatched a partially filled
         input: customer ID
         output: list of "order" objects.
         :return:
@@ -398,7 +402,7 @@ class Customer(object):
     def clean_up_customer(self):
         """
         Cleans the customer. Cancels all orders, unfreezes all balance by GUIDs, removes all balance from the customer
-        :return: Clean customer with no orders and empty blanace.
+        :return: Clean customer with no orders and empty balance.
         """
         orders = self.get_open_orders_mysql(self.customer_id)
         if orders:
@@ -475,7 +479,7 @@ class Customer(object):
     @automation_logger(logger)
     def insert_new_crm_user_sql(self):
         date_ = str(datetime.date.today()) + " 00:00:00"
-        query = """INSERT INTO local_users (brokerId, email, firstName, lastName, city, country, zip, streetName, 
+        query: LiteralString | Any = """INSERT INTO local_users (brokerId, email, firstName, lastName, city, country, zip, streetName, 
         streetNum, aptNum, primaryPhone, secondaryPhone, extension, cellphone, username, password, userTypeId, 
         department, position, affiliateCanSee, commision, status, dateJoined, datePassword, lastLogin, lastPassword, 
         isResetPassword, resetPasswordDate, home_list_order, enableReports, assigCmpId, assigCmpFields, 
