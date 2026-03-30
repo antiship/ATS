@@ -93,7 +93,8 @@ class RedisDb:
 
     @classmethod
     @automation_logger(logger)
-    def get_orders_best_price_and_quantity(cls, instrument_id, direction, consistence):
+    def get_orders_best_price_and_quantity(cls, instrument_id, direction, consistence) -> None | list[int] | list[
+        list[int]]:
         """
         Get price and quantity from order book (redis), direction accordingly.
         :param instrument_id: Instrument ID- int.

@@ -39,6 +39,7 @@ class Customer(object):
             if isinstance(args[0], str):
                 (self.email, self.password, customer_id) = args
             elif len(args[0][0]) and isinstance(args[0][0], tuple):
+                customer_id: str
                 (((self.email, self.password, customer_id),),) = args
             else:
                 ((self.email, self.password, customer_id),) = args
@@ -426,7 +427,7 @@ class Customer(object):
         :return:
         """
         order_book = Instruments.get_orders_best_price_and_quantity(instrument_id, direction, 2)
-        if order_book is not None and len(order_book) > 0:
+        if order_book and len(order_book) > 0:
             quantity = 0
             for record in order_book:
                 quantity += record[1]
@@ -443,6 +444,7 @@ class Customer(object):
             quantity = round(quantity, tail_digits_allowed)
 
             return quantity, price
+        return None
 
     @automation_logger(logger)
     def clean_instrument(self, instrument_id, base_currency=None, quoted_currency=None):
