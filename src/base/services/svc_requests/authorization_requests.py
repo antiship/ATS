@@ -13,7 +13,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     @automation_logger(logger)
     def session_data(self) -> str:
         """
-        Sending a request to retrieve customer's session data.
+        Perform Request to Retrieve customer's session data.
         @return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "SessionData"
@@ -25,7 +25,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     @automation_logger(logger)
     def enable_tfa_step_1(self, password: str) -> str:
         """
-        Sending a request to enable TFA.
+        Perform a Request to Enable TFA.
         @param password: String.
         @return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
@@ -46,7 +46,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     @automation_logger(logger)
     def enable_tfa_step_2(self, state: bool) -> str:
         """
-        This method is used to create a request that enables the tfa . Enabled in 2 steps.  Step 2.
+        Perform Enabling the TFA  Step 2.
         :param state: True -> Turn-On / False -> Turn-Off
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
@@ -68,9 +68,9 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     @automation_logger(logger)
     def login_by_credentials(self, email: str, password: str) -> str:
         """
-
-        :param email:
-        :param password:
+        Perform Log In Request by Credentials
+        :param email: Some String
+        :param password: Some String
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "LoginByCredentials"
@@ -88,8 +88,8 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     @automation_logger(logger)
     def login_by_tfa_token(self, tfa_token: str) -> str:
         """
-
-        :param tfa_token:
+        Perform Log In Request by TFA
+        :param tfa_token: Some String
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "LoginByTwoFactorToken"
@@ -107,9 +107,9 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     @automation_logger(logger)
     def login_by_token(self, api_token: str, secret: str) -> str:
         """
-
-        :param api_token:
-        :param secret:
+        Perform Log In Request by API token
+        :param api_token: Some String
+        :param secret: Some String
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "LoginByToken"
@@ -126,7 +126,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     @automation_logger(logger)
     def log_out(self) -> str:
         """
-
+        Perform Log OUT Request
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "Logout"
@@ -138,9 +138,9 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     @automation_logger(logger)
     def generate_password_hash(self, email: str, password: str) -> str:
         """
-
-        :param email:
-        :param password:
+        Perform Generate Password HASH Request
+        :param email: Some String
+        :param password: Some String
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "GeneratePasswordHash"
@@ -155,10 +155,10 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def update_personal_details(self, customer: customer) -> str:
+    def update_personal_details(self, customer: Customer) -> str:
         """
-
-        :param customer:
+        Perform Update Personal Details Request
+        :param customer: Customer object
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "UpdatePersonalDetails"
@@ -184,10 +184,10 @@ class AuthorizationServiceRequest(ApiRequestSchema):
         return body
 
     @automation_logger(logger)
-    def validate_token(self, auth_token: str):
+    def validate_token(self, auth_token: str) -> str:
         """
 
-        :param auth_token:
+        :param auth_token: Some String
         :return: Request body as serialized ``obj`` into a JSON formatted ``str``.
         """
         self.method += "ValidateToken"
