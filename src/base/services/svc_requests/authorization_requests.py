@@ -407,7 +407,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def get_needed_files(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "GetNeededFiles"
         self.params.extend([])
@@ -419,7 +419,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def get_questionnaire(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "GetQuestionnaire"
         self.params.extend([])
@@ -431,7 +431,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_email_step1(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangeEmail"
         self.params.extend([
@@ -448,7 +448,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_email_step2(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangeEmail"
         self.params.extend([
@@ -467,7 +467,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_email_step3(self, email_token: str, email: str):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangeEmail"
         self.params.extend([
@@ -488,7 +488,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_email_step4(self, ver_token: str):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangeEmail"
         self.params.extend([
@@ -507,7 +507,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_phone_step1(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangePhone"
         self.params.extend([
@@ -524,7 +524,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_phone_step2(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangePhone"
         self.params.extend([
@@ -543,7 +543,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_phone_step3(self, phone_token: str, full_phone: str):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangePhone"
         self.params.extend([
@@ -563,7 +563,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_phone_step4(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangePhone"
         self.params.extend([
@@ -582,7 +582,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def resend_sms(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ResendSms"
         self.params.extend([])
@@ -594,7 +594,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def resend_email(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ResendEmail"
         self.params.extend([])
@@ -607,7 +607,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
 
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ForgotPassword"
         self.params.extend([
@@ -625,7 +625,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
 
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "RestorePassword"
         self.params.extend([
@@ -644,7 +644,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def reset_password(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ResetPassword"
         self.params.extend([])
@@ -656,7 +656,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_password(self, password, new_password):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangePassword"
         self.params.extend([
@@ -674,7 +674,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def change_subscriptions(self, email_option, sms_option, mobile_option):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "ChangeCustomerSubscription"
         self.params.extend([
@@ -692,7 +692,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def get_login_logs(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "GetCustomerLoginLogs"
         self.params.extend([])
@@ -704,7 +704,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def reset_phone(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "SignUpResetPhone"
         self.params.extend([])
@@ -716,7 +716,7 @@ class AuthorizationServiceRequest(ApiRequestSchema):
     def signup_step_back(self):
         """
 
-        :return: request body as json dump string.
+        :return: request body as JSON dump string.
         """
         self.method += "SignUpStepBack"
         self.params.extend([])
