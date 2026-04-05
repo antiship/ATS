@@ -295,3 +295,4 @@ class Utils:
             except Exception as e:
                 logger.logger.error(F"{e.__class__.__name__} get_mail_gun_item failed error: {e}")
                 raise e
+        return None
