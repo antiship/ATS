@@ -16,7 +16,10 @@ RUN apk update && apk add \
 FROM python:3.7
 
 # ensure local python is preferred over distribution python
-ENV PATH /usr/local/bin:$PATH
+ENV PATH=/usr/local/bin:$PATH
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
 ## Gecko Driver
 #ENV GECKODRIVER_VERSION 0.23.0
@@ -44,7 +47,7 @@ RUN unzip /tmp/chromedriver.zip chromedriver -d /usr/local/bin/
 RUN apt-get install -yqq xvfb
 
 # install pip
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py
+# RUN curl -O https://bootstrap.pypa.io/get-pip.py && python get-pip.py
 RUN pip install --upgrade pip
 
 # copy source code
@@ -65,8 +68,8 @@ RUN chmod -R 775 project/src/drivers
 ENV DISPLAY=:99
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
-VOLUME ["./allure_/allure_results"]
+VOLUME ["project/allure_/allure_results"]
 WORKDIR project
 
 # Leave it on
-CMD tail -f /dev/null
+CMD ["tail", "-f", "/dev/null"]
