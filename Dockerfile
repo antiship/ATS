@@ -65,5 +65,8 @@ RUN chmod -R 775 project/src/drivers
 ENV DISPLAY=:99
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
+VOLUME ["./allure_/allure_results"]
+WORKDIR project
+
 # Leave it on
 CMD tail -f /dev/null
